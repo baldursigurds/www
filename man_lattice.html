@@ -1,0 +1,217 @@
+<!-- Creator     : groff version 1.21 -->
+<!-- CreationDate: Fri Feb 21 14:11:44 2014 -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta name="generator" content="groff -Thtml, see www.gnu.org">
+<meta http-equiv="Content-Type" content="text/html; charset=US-ASCII">
+<meta name="Content-Style" content="text/css">
+<style type="text/css">
+       p       { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       pre     { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       table   { margin-top: 0; margin-bottom: 0; vertical-align: top }
+       h1      { text-align: center }
+</style>
+<title>lattice</title>
+
+</head>
+<body>
+
+<h1 align="center">lattice</h1>
+
+<a href="#NAME">NAME</a><br>
+<a href="#SYNOPSIS">SYNOPSIS</a><br>
+<a href="#DESCRIPTION">DESCRIPTION</a><br>
+<a href="#COMMANDS">COMMANDS</a><br>
+<a href="#NOTE">NOTE</a><br>
+<a href="#EXAMPLES">EXAMPLES</a><br>
+<a href="#HISTORY &amp; ACKNOWLEDGEMENTS">HISTORY &amp; ACKNOWLEDGEMENTS</a><br>
+
+<hr>
+
+
+<h2>NAME
+<a name="NAME"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lattice - a
+computational tool for lattice cohomology</p>
+
+<h2>SYNOPSIS
+<a name="SYNOPSIS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lattice [file1
+[file2 ..] ]</p>
+
+<h2>DESCRIPTION
+<a name="DESCRIPTION"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">lattice can
+compute the root of the zeroth lattice homology of a
+singularity given the intersection form of the link, a list
+of bad vertices and the values of the canonical divisor on
+those vertices. The arguments should be names of files which
+the program parses. The files should contain a list of
+commands which the program executes. Next the user is
+provided with a prompt to input more commands. Commands are
+given by a single letter in the beginning of lines. The rest
+of the line may contain parameters, or it is ignored if it
+contains more than the expected parameters.</p>
+
+<h2>COMMANDS
+<a name="COMMANDS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em"><b>i</b> <br>
+Input data. The character following i should be one of the
+following:</p>
+
+<table width="100%" border="0" rules="none" frame="void"
+       cellspacing="0" cellpadding="0">
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>n</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followed by an integer to enter n, the number of
+vertices.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>v</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followed by an integer to enter nu, the number of bad
+vertices.</p> </td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>I</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followed by n^2 integers to enter I, the intersection
+matrix. This should be preceded by entering n.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>b</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followed by nu integers to specify which vertices are
+bad. This should be preceded by entering nu via v.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>K</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followed by nu integers to specify the values of the
+anti-canonical divisor Z_K on the bad vertices. This should
+be preceded by entering nu via v.</p></td></tr>
+<tr valign="top" align="left">
+<td width="11%"></td>
+<td width="1%">
+
+
+<p>f</p></td>
+<td width="10%"></td>
+<td width="78%">
+
+
+<p>followd by an integer to specify output format. If a
+nonzero value is entered, then the program writes the values
+of chi into the file &rsquo;output&rsquo;. This file is
+owerwritten each time, so make sure to move it somewhere
+else if you want to keep it.</p></td></tr>
+</table>
+
+<p style="margin-left:11%; margin-top: 1em"><b>p</b> <br>
+Print data. The p should be followed by one of the
+characters nvIbK to print data obtained via the input
+command or r to print the root.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>c</b> <br>
+Calculate root from data provided.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>f</b> <br>
+Flush data, that is, forget the root if it has been
+calculated.</p>
+
+<p style="margin-left:11%; margin-top: 1em"><b>q</b> <br>
+Quit the program.</p>
+
+<h2>NOTE
+<a name="NOTE"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The program
+calculates the minimal path cohomolgy only in the reduced
+lattice. This means that the minimum ranges over only a
+particular set of paths. In practice, we have not found this
+minimum to be bigger than the actual minimum (assuming we
+have calculated the actual minimum) but this reduced minimum
+has not been proved to coincide with the actual one in
+general.</p>
+
+<p style="margin-left:11%; margin-top: 1em">Since any path
+gives an upper bound for the geometric genus, it follows
+that if the reduced minimal path cohomology produced by the
+program coincides with the geometric genus of some analytic
+structure with the given graph, then this is really the
+minimal path cohomology. This is the case e.g. for Newton
+nondegenerate hypersurface singularities.</p>
+
+<h2>EXAMPLES
+<a name="EXAMPLES"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The files
+data1, data2 and data3 are examples which calculate the
+roots of one topological type each.</p>
+
+<h2>HISTORY &amp; ACKNOWLEDGEMENTS
+<a name="HISTORY &amp; ACKNOWLEDGEMENTS"></a>
+</h2>
+
+
+<p style="margin-left:11%; margin-top: 1em">The lattice
+cohomology was introduced by N&eacute;methi Andr&aacute;s as
+an invariant of links of surface singularities. The main
+theoretical ingredient here is Tams&aacute;s
+L&aacute;szl&oacute;&rsquo;s reduction theorem and a
+generalized form of Laufer&rsquo;s computation sequence. The
+program was made by Baldur Sigur&eth;sson, baldur at renyi
+dot hu, started in 2013.</p>
+<hr>
+</body>
+</html>

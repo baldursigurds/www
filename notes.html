@@ -1,0 +1,357 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html>
+<head>
+  <title>
+  Notes
+  </title>
+  <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>
+Notes
+</h1>
+
+<h2>
+LaTeX
+</h2>
+
+<h3>
+How to use cleveref and amsthm in such a way that it works.
+</h3>
+
+<p>
+It took me a long time to find out how to use cleveref and amsthm together.
+If you have <tt>texdoc</tt> installed, you can find pretty much the same info
+in the documentation for <tt>cleveref</tt>. First off, you'll need the package
+<tt>aliascnt</tt>. Then you use an alias for the <tt>thm</tt> counter (or
+whatever you're using). An example follows:
+</p>
+
+<tt>
+<pre>
+\usepackage{amsthm}
+\usepackage{aliascnt}
+\usepackage{cleveref}
+
+\newtheorem{thm}{Theorem}[section]
+\crefname{thm}{theorem}{theorems}
+\Crefname{thm}{Theorem}{Theorems}
+
+\newaliascnt{lemma}{thm}
+\newtheorem{lemma}[lemma]{Lemma}
+\aliascntresetthe{lemma}
+
+\newaliascnt{prop}{thm}
+\newtheorem{prop}[prop]{Proposition}
+\aliascntresetthe{prop}
+\crefname{prop}{proposition}{propositions}
+\Crefname{prop}{Proposition}{Propositions}
+</pre>
+</tt>
+
+<p>
+To test the thing out, try it with this.
+</p>
+
+<tt>
+<pre>
+\begin{thm} \label{1}
+A very important statement.
+\end{thm}</br>
+\begin{lemma} \label{2}
+A less important statement.
+\end{lemma}
+\begin{prop} \label{3}
+$1=0$.
+\end{prop}
+
+\cref{1} \Cref{1}\\
+\cref{2} \Cref{2}\\
+\cref{3} \Cref{3}
+</pre>
+</tt>
+
+<h3>
+How to use xfig in such a way that it works for both dvi and pdf.
+</h3>
+<p>
+If you want both pdf and dvi coming from the same document, then the packages
+ifpdf and ifthen are pretty useful:
+</p>
+<tt>
+<pre>
+\usepackage{ifpdf}
+\usepackage{ifthen}
+</pre>
+</tt>
+<p>
+Next you'll need some graphic packages:
+</p>
+<tt>
+<pre>
+\ifpdf
+\usepackage[pdftex]{graphicx,color}
+\else
+\usepackage{graphicx}
+\fi
+</pre>
+</tt>
+<p>
+Now, draw your favorite graph of whatever using xfig and export as combined
+PS/LaTeX as well as combined PDF/LaTeX. This produces a bunch of files, all
+of which are best kept in the folder containing the .tex document (or wherever
+else you prefer). Now you can define a handy command 
+</p>
+<tt>
+<pre>
+\newcommand{\mynd}[4]
+{
+    \begin{figure}[#2]
+    \begin{center}
+        \ifpdf
+            \input{#1.pdf_t}
+        \else
+            \input{#1.pstex_t}
+        \fi
+        \ifthenelse{\equal{#3}{}}
+        {
+        }
+        {
+            \caption{#3\label{#4}}
+        }
+    \end{center}
+    \end{figure}
+}
+</pre>
+</tt>
+<p>
+This way, you can import a picture into a latex document which works for
+both latex and pdflatex. It takes four arguments, these are: #1 the name
+of the xfig file with no extension; #2 any of the letters h,t,b etc for
+your preference of setting the picture here, top, bottom, etc;
+#3 the caption of the figure---if left empty there will be no caption and
+no label: #4 the label identifying the picture.
+</p>
+
+
+<h3>
+Lists and indentation
+</h3>
+
+<p>
+I could never figure out how to use the standard <tt>enumerate</tt>
+environment to construct an enumerated list without an extra indentation
+for the text. Until now, that is!
+
+Here is an example of a <tt>list</tt> environment which does
+pretty much the same job, but with no indentation. Start by putting
+the followint into the preamble:
+</p>
+<tt>
+<pre>
+% This counter is for enumerated lists without indentations
+\newcounter{dummy}
+\renewcommand{\thedummy}{\roman{dummy}}
+\crefformat{dummy}{#2(#1)#3}
+</pre>
+</tt>
+<p>
+The first line creates the counter <tt>dummy</tt>. LaTeX then automatically
+creates the command <tt>\thedummy</tt> which is called whenever the contents
+of the counter are to be printed. The second line changes this command to
+make sure that the counter is printed in lower case roman numerals (see
+<a href="https://en.wikibooks.org/wiki/LaTeX/Counters#Counter_style">here</a>
+for more options).
+Use the third line only if you're using the <tt>cleveref</tt> package,
+their <a href="http://ctan.org/pkg/cleveref">documentation</a> is pretty good.
+Then, make a list like so:
+</p>
+<tt>
+<pre>
+\begin{list}{(\thedummy)}
+{
+  \usecounter{dummy}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\itemsep}{0pt}
+  \setlength{\itemindent}{4.5pt}
+}
+
+\item 
+La la la items \ldots
+
+\end{list}
+</pre>
+</tt>
+<p>
+For more info, see
+<a href="http://www.giss.nasa.gov/tools/latex/ltx-260.html">
+NASA's point of view</a>. Note that the last line of the third argument
+where we set the value of <tt>\itemindent</tt> to <tt>4.5pt</tt> is pretty
+blatantly ad-hoc. I put this in because otherwise the first line of
+each item would stick out to the left. I don't know why that is, but you might
+want to play around with this value, or any of the other values, for that
+matter, to make everything look good.
+</p>
+
+
+
+<h2>
+Vim
+</h2>
+<h3>    
+Some macros
+</h3>
+
+<p>
+I keep a macro in the <tt>l</tt> register for compiling latex
+documents. This requires latexmk. For this, execute
+</p>
+
+<tt>
+<pre>
+let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
+</pre>
+</tt>
+
+<p>
+This one I keep in <tt>e</tt> to toggle spelling.
+</p>
+
+<tt>
+<pre>
+let @e=":set spell! spelllang=en\n"
+</pre>
+</tt>
+
+<p>
+It is also useful to toggle <tt>autoindent</tt> as follows:
+</p>
+
+<tt>
+<pre>
+let @i=":set invautoindent\n:set autoindent?\n"
+</pre>
+</tt>
+</p>
+
+<h2>
+.Xdefaults / .Xresources
+</h2>
+
+<h3>
+XDvi
+</h3>
+
+Some of these parameters should obviously be adjusted to the dimensions
+of your screen.
+
+<tt>
+<pre>
+XDvi*expertMode:    0
+XDvi*noInitFile:    1
+XDvi*highlight:     black
+XDvi*foreground:    black
+XDvi*geometry:      1023x1080
+XDvi*shrinkFactor:  5
+XDvi*topMargin:     5cm
+XDvi.mainTranslations: #override \
+&lt;Key&gt;G:   goto-page(1)        \n \
+&lt;Key&gt;.:   forward-page()      \n \
+",":      back-page()         \n \
+&lt;Key&gt;j:   down(0.015)         \n \
+&lt;Key&gt;k:   up(0.015)           \n \
+</pre>
+</tt>
+
+<h3>
+XFig
+</h3>
+
+If you don't put in these options, an error will come your way. The
+<tt>special</tt> flag is important if you want text to be interpreted
+as LaTeX code. In this case, remember to export everything to
+<tt>Combined PS/LaTeX (both parts)</tt> for <tt>dvi</tt> output and
+<tt>Combined PDF/LaTeX (both parts)</tt> for <tt>pdf</tt> output.
+
+
+<tt>
+<pre>
+Fig.latexfonts: true
+Fig.specialtext: true
+Fig.canvasforeground: default
+</pre>
+</tt>
+
+
+<h3>
+XDaliClock
+</h3>
+
+For optimal desktop clock experience, use <tt>xdaliclock</tt>
+with the following parameters:
+
+<tt>
+<pre>
+XDaliClock.mode:         24
+XDaliClock.seconds:      false
+XDaliClock.cycle:        false
+XDaliClock.transparent:  true
+</pre>
+</tt>
+
+If you're using <tt>evilwm</tt>, use the command line parameters
+<tt>-app xdaliclock/XDaliClock -g 444x162+a+b</tt>, where
+<tt>a,b</tt> is your favorite position on the desktop for a clock.
+
+<h2>
+Miscellaneous
+</h2>
+
+<h3>
+Fonts
+</h3>
+
+Say you have a directory <tt>/full/path/to/dir/</tt> full of your favorite
+fonts. How can you use them in your favorite applications?
+Use the program
+<a href="http://www.x.org/archive/X11R7.5/doc/man/man1/mkfontdir.1.html">
+<tt>mkfontdir</tt></a> to create a file <tt>fonts.dir</tt>. Then use
+<a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xset.1.html">
+<tt>xset</tt></a> to tell the system to use this directory. In short,
+<tt>
+<pre>
+cd /full/path/to/dir/
+mkfontdir
+xset +fp /full/path/to/dir/
+</pre>
+</tt>
+The last of these commands must be repeated every time you log in using
+<tt>xdm</tt>, <tt>startx</tt> or <tt>xinit</tt> or something like that.
+Therefore, it is good to add it to <tt>.xsession</tt> if you use
+<tt>xdm</tt> or <tt>startx</tt>, or to
+or <tt>.xinitrc</tt> if you use <tt>xinit</tt>.
+
+An excellent font for the command line is
+<a href="http://terminus-font.sourceforge.net/"><tt>terminus</tt></a>.
+
+<h3>
+Bash
+</h3>
+
+If you don't want bash to spam you with advertisements for packages when
+you mistype a command, put this into your <tt>.bashrc</tt>.
+
+<tt>
+<pre>
+command_not_found_handle() {
+    printf "%s: command not found\n" "$1" >&2
+    return 127
+}
+</pre>
+</tt>
+
+
+</body>
+</html>
