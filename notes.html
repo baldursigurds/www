@@ -214,9 +214,16 @@ documents. This requires latexmk. For this, execute
 let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
 </pre>
 </tt>
+or, if you're using (<tt>t</tt>)<tt>csh</tt>,
+<tt>
+<pre>
+let @l=":w\n:!if ( % =~ *.tex) latexmk %\n"
+</pre>
+</tt>
+
 
 <p>
-This one I keep in <tt>e</tt> to toggle spelling.
+This one I keep in <tt>@e</tt> to toggle spelling.
 </p>
 
 <tt>
@@ -235,6 +242,23 @@ let @i=":set invautoindent\n:set autoindent?\n"
 </pre>
 </tt>
 </p>
+
+<h3>
+Colors
+</h3>
+So far, I like the color scheme
+<a href="https://github.com/tpope/vim-vividchalk">vividchalk</a>.
+For this to work, copy the file <tt>vividchalk.vim</tt> to
+<tt>~/.vim/colors/</tt> and add the lines
+<tt>
+<pre>
+syntax enable
+colorscheme vividchalk
+</pre>
+</tt>
+to your <tt>.vimrc</tt>. Don't forget to use a 
+<a href="http://terminus-font.sourceforge.net/">slick font</a>.
+
 
 <h2>
 .Xdefaults / .Xresources
@@ -340,6 +364,7 @@ An excellent font for the command line is
 Bash
 </h3>
 
+<p>
 If you don't want bash to spam you with advertisements for packages when
 you mistype a command, put this into your <tt>.bashrc</tt>.
 
@@ -351,6 +376,78 @@ command_not_found_handle() {
 }
 </pre>
 </tt>
+</p>
+
+
+<h3>
+Mutt
+</h3>
+
+<p>
+<a href="http://www.mutt.org">Mutt</a> is the best email client in the world.
+Its only downside is that its
+<a href="http://www.mutt.org/doc/manual/">documentation</a>&mdash;excellent
+as it may be&mdash;is something of a jungle. To make things simpler for
+anyone interested in starting using this great program, I have made my
+configuration files publicly available
+<a href="https://bitbucket.org/baldursigurds/muttrc">here</a>.
+To get started, just follow the instructions in the <tt>README</tt>.
+</p>
+
+<p>
+Don't forget to install
+<a href="http://abook.sourceforge.net/">abook</a>. It should be available
+in most package systems and works pretty much out of the box.
+</p>
+
+<p>
+If you're interested in using encryption, have a look at
+<a href="http://codesorcery.net/old/mutt/mutt-gnupg-howto">these
+instructions</a>. The text may look daunting at first, but it is very much
+to the point and gives a practical guide to
+<a href="https://gnupg.org/">GnuPG</a>, with emphasis on mutt.
+The file <tt>crypto</tt> from the above git repository has pretty much 
+been copied directly from this manual.
+</p>
+
+<p>
+&#42;Shameless plug&#42;&mdash;if a text based interface to email is not your
+cup of 
+tea, then check out <a href="https://www.mailpile.is/">mailpile</a>.
+It's an effort to make encrypted email easy and appealing, rather than
+having to jump through 
+<a href="http://www.mutt.org/doc/manual/">hoops</a>
+like a dog. Keep in mind, though, that mailpile is still in beta stage.
+</p>
+
+
+<h3>
+Zathura
+</h3>
+
+<p>
+<a href="https://pwmt.org/projects/zathura/">Zathura</a> is a choice
+application for viewing <tt>pdf</tt> and <tt>djvu</tt> documents.
+What follows is my configuration file, found in
+<tt>~/.config/zathura/zathurarc</tt>
+<tt>
+<pre>
+map . navigate next
+map , navigate previous
+
+map C-u navigate half-up
+map C-d navigate half-down
+map C-e navigate up
+map C-y navigate down
+
+map i zoom in
+map u zoom out
+</pre>
+</tt>
+The binding of <tt>.</tt> and <tt>,</tt> is inspired by the default
+bindings of the nice pdf viewer
+<a href="http://mupdf.com/"><tt>mupdf</tt></a>.
+</p>
 
 
 </body>
