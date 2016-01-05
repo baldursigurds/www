@@ -50,7 +50,6 @@ whatever you're using). An example follows:
 
 To test the thing out, try it with this.
 
-<tt>
 <pre>
 \begin{thm} \label{1}
 A very important statement.
@@ -66,7 +65,6 @@ $1=0$.
 \cref{2} \Cref{2}\\
 \cref{3} \Cref{3}
 </pre>
-</tt>
 </p>
 
 <h3>
@@ -76,16 +74,13 @@ How to use xfig in such a way that it works for both dvi and pdf.
 If you want both pdf and dvi coming from the same document, then the packages
 <tt>ifpdf</tt> and <tt>ifthen</tt> are pretty useful:
 
-<tt>
 <pre>
 \usepackage{ifpdf}
 \usepackage{ifthen}
 </pre>
-</tt>
 
 Next you'll need some graphic packages:
 
-<tt>
 <pre>
 \ifpdf
 \usepackage[pdftex]{graphicx,color}
@@ -93,14 +88,12 @@ Next you'll need some graphic packages:
 \usepackage{graphicx}
 \fi
 </pre>
-</tt>
 
 Now, draw your favorite graph of whatever using xfig and export as combined
 PS/LaTeX as well as combined PDF/LaTeX. This produces a bunch of files, all
 of which are best kept in the folder containing the .tex document (or wherever
 else you prefer). Now you can define a handy command 
 
-<tt>
 <pre>
 \newcommand{\mynd}[4]
 {
@@ -121,7 +114,6 @@ else you prefer). Now you can define a handy command
     \end{figure}
 }
 </pre>
-</tt>
 
 This way, you can import a picture into a latex document which works for
 both latex and pdflatex. It takes four arguments, these are: #1 the name
@@ -142,7 +134,6 @@ the content all line up nicely with the rest of the material. This is
 especially convenient to list out examples or remarks, where each element
 of the list is typically a full paragraph, rather than just a word or two.
 
-<tt>
 <pre>
 \newenvironment{blist}
 {
@@ -159,14 +150,12 @@ of the list is typically a full paragraph, rather than just a word or two.
   \end{list}
 }
 </pre>
-</tt>
 
 The number <tt>4</tt> here can be adjusted, but to me it seems to produce
 reasonable space.
 With the above code in the preamble, you can now create a nice list like
 this:
 
-<tt>
 <pre>
 \begin{blist}
 
@@ -178,68 +167,9 @@ The second remark is quite important.
 
 \end{blist}
 </pre>
-</tt>
 
 For further info, see e.g. 3.4.4 of The LaTeX Companion, Second Edition.
 </p>
-
-
-<!--
-<p>
-I could never figure out how to use the standard <tt>enumerate</tt>
-environment to construct an enumerated list without an extra indentation
-for the text. Until now, that is!
-
-Here is an example of a <tt>list</tt> environment which does
-pretty much the same job, but with no indentation. Start by putting
-the followint into the preamble:
-</p>
-<tt>
-<pre>
-% This counter is for enumerated lists without indentations
-\newcounter{dummy}
-\renewcommand{\thedummy}{\roman{dummy}}
-\crefformat{dummy}{#2(#1)#3}
-</pre>
-</tt>
-<p>
-The first line creates the counter <tt>dummy</tt>. LaTeX then automatically
-creates the command <tt>\thedummy</tt> which is called whenever the contents
-of the counter are to be printed. The second line changes this command to
-make sure that the counter is printed in lower case roman numerals (see
-<a href="https://en.wikibooks.org/wiki/LaTeX/Counters#Counter_style">here</a>
-for more options).
-Use the third line only if you're using the <tt>cleveref</tt> package,
-their <a href="http://ctan.org/pkg/cleveref">documentation</a> is pretty good.
-Then, make a list like so:
-</p>
-<tt>
-<pre>
-\begin{list}{(\thedummy)}
-{
-  \usecounter{dummy}
-  \setlength{\leftmargin}{0pt}
-  \setlength{\itemsep}{0pt}
-  \setlength{\itemindent}{4.5pt}
-}
-
-\item 
-La la la items \ldots
-
-\end{list}
-</pre>
-</tt>
-<p>
-For more info, see
-<a href="http://www.giss.nasa.gov/tools/latex/ltx-260.html">
-NASA's point of view</a>. Note that the last line of the third argument
-where we set the value of <tt>\itemindent</tt> to <tt>4.5pt</tt> is pretty
-blatantly ad-hoc. I put this in because otherwise the first line of
-each item would stick out to the left. I don't know why that is, but you might
-want to play around with this value, or any of the other values, for that
-matter, to make everything look good.
-</p>
--->
 
 
 <h2>
@@ -254,35 +184,27 @@ Some macros
 I keep a macro in the <tt>l</tt> register for compiling latex
 documents. This requires latexmk. For this, execute
 
-<tt>
 <pre>
 let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
 </pre>
-</tt>
 
 or, if you're using (<tt>t</tt>)<tt>csh</tt>,
 
-<tt>
 <pre>
 let @l=":w\n:!if ( % =~ *.tex) latexmk %\n"
 </pre>
-</tt>
 
 This one I keep in <tt>@e</tt> to toggle spelling.
 
-<tt>
 <pre>
 let @e=":set spell! spelllang=en\n"
 </pre>
-</tt>
 
 It is also useful to toggle <tt>autoindent</tt> as follows:
 
-<tt>
 <pre>
 let @i=":set invautoindent\n:set autoindent?\n"
 </pre>
-</tt>
 </p>
 
 <h3>
@@ -295,12 +217,10 @@ So far, I like the color scheme
 For this to work, copy the file <tt>vividchalk.vim</tt> to
 <tt>~/.vim/colors/</tt> and add the lines
 
-<tt>
 <pre>
 syntax enable
 colorscheme vividchalk
 </pre>
-</tt>
 
 to your <tt>.vimrc</tt>. Don't forget to use a 
 <a href="http://terminus-font.sourceforge.net/">slick font</a>.
@@ -319,7 +239,6 @@ XDvi
 Some of these parameters should obviously be adjusted to the dimensions
 of your screen.
 
-<tt>
 <pre>
 XDvi*expertMode:    0
 XDvi*noInitFile:    1
@@ -339,7 +258,6 @@ XDvi.mainTranslations: #override   \
 &lt;Key&gt;i:   set-shrink-factor(+)  \n \
 &lt;Key&gt;u:   set-shrink-factor(-)  \n \
 </pre>
-</tt>
 </p>
 
 <h3>
@@ -354,13 +272,11 @@ as LaTeX code. In this case, remember to export everything to
 <tt>Combined PDF/LaTeX (both parts)</tt> for <tt>pdf</tt> output.
 
 
-<tt>
 <pre>
 Fig.latexfonts: true
 Fig.specialtext: true
 Fig.canvasforeground: default
 </pre>
-</tt>
 </p>
 
 
@@ -372,14 +288,12 @@ XDaliClock
 For optimal desktop clock experience, use <tt>xdaliclock</tt>
 with the following parameters:
 
-<tt>
 <pre>
 XDaliClock.mode:         24
 XDaliClock.seconds:      false
 XDaliClock.cycle:        false
 XDaliClock.transparent:  true
 </pre>
-</tt>
 
 If you're using <tt>evilwm</tt>, use the command line parameters
 <tt>-app xdaliclock/XDaliClock -g 444x162+a+b</tt>, where
@@ -403,13 +317,11 @@ Use the program
 <a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xset.1.html">
 <tt>xset</tt></a> to tell the system to use this directory. In short,
 
-<tt>
 <pre>
 cd /full/path/to/dir/
 mkfontdir
 xset +fp /full/path/to/dir/
 </pre>
-</tt>
 
 The last of these commands must be repeated every time you log in using
 <tt>xdm</tt>, <tt>startx</tt> or <tt>xinit</tt> or something like that.
@@ -429,14 +341,12 @@ Bash
 If you don't want bash to spam you with advertisements for packages when
 you mistype a command, put this into your <tt>.bashrc</tt>.
 
-<tt>
 <pre>
 command_not_found_handle() {
     printf "%s: command not found\n" "$1" >&2
     return 127
 }
 </pre>
-</tt>
 </p>
 
 
@@ -489,13 +399,11 @@ Abook
 <p>
 Here is my <tt>~/.abook/abookrc</tt>
 
-<tt>
 <pre>
 set emailpos=40
 set extra_column=-1
 set sort_field=Name
 </pre>
-</tt>
 </p>
 
 
@@ -509,7 +417,6 @@ application for viewing <tt>pdf</tt> and <tt>djvu</tt> documents.
 What follows is my configuration file, found in
 <tt>~/.config/zathura/zathurarc</tt>
 
-<tt>
 <pre>
 map . navigate next
 map , navigate previous
@@ -522,7 +429,6 @@ map C-y navigate down
 map i zoom in
 map u zoom out
 </pre>
-</tt>
 
 The binding of <tt>.</tt> and <tt>,</tt> is inspired by the default
 bindings of the nice pdf viewer
@@ -540,7 +446,6 @@ The best music player is
 The configuration file for <tt>mocp</tt> is usually
 <tt>~/.moc/config</tt>. For me, this looks like
 
-<tt>
 <pre>
 Theme = moca_theme_ed
 Keymap = keymap
@@ -548,13 +453,11 @@ Keymap = keymap
 Layout1 = directory(0,0,100%,100%):playlist(0,0,100%,100%)
 Layout2 = directory(0,0,50%,100%):playlist(50%,0,FILL,100%)
 </pre>
-</tt>
 
 The first line selects a theme. I made small modifications to the theme
 <tt>moca_theme</tt> which I keep in <tt>~/.moc/themes/moca_theme_ed</tt>
 and reads
 
-<tt>
 <pre>
 background              = white         black
 frame                   = white         black
@@ -601,7 +504,6 @@ error                   = red           black   bold
 message                 = green         black   bold
 plist_time              = red           black   bold
 </pre>
-</tt>
 
 Note the options <tt>selected_info</tt>, <tt>marked_info</tt> and
 <tt>marked_selected_info</tt> which seem to be missing from many of the
@@ -611,12 +513,10 @@ The second line instructs <tt>mocp</tt> to read the file
 <tt>~/.moc/keymap</tt> and use the keybindings there. For me, this reads
 simply as as
 
-<tt>
 <pre>
 menu_down += j
 menu_up += k
 </pre>
-</tt>
 
 The last two lines switch the two default layouts, as I prefer to just
 use the file browser.
