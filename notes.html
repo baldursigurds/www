@@ -27,7 +27,6 @@ If you have <tt>texdoc</tt> installed, you can find pretty much the same info
 in the documentation for <tt>cleveref</tt>. First off, you'll need the package
 <tt>aliascnt</tt>. Then you use an alias for the <tt>thm</tt> counter (or
 whatever you're using). An example follows:
-</p>
 
 <tt>
 <pre>
@@ -51,15 +50,13 @@ whatever you're using). An example follows:
 </pre>
 </tt>
 
-<p>
 To test the thing out, try it with this.
-</p>
 
 <tt>
 <pre>
 \begin{thm} \label{1}
 A very important statement.
-\end{thm}</br>
+\end{thm}
 \begin{lemma} \label{2}
 A less important statement.
 \end{lemma}
@@ -72,23 +69,24 @@ $1=0$.
 \cref{3} \Cref{3}
 </pre>
 </tt>
+</p>
 
 <h3>
 How to use xfig in such a way that it works for both dvi and pdf.
 </h3>
 <p>
 If you want both pdf and dvi coming from the same document, then the packages
-ifpdf and ifthen are pretty useful:
-</p>
+<tt>ifpdf</tt> and <tt>ifthen</tt> are pretty useful:
+
 <tt>
 <pre>
 \usepackage{ifpdf}
 \usepackage{ifthen}
 </pre>
 </tt>
-<p>
+
 Next you'll need some graphic packages:
-</p>
+
 <tt>
 <pre>
 \ifpdf
@@ -98,12 +96,12 @@ Next you'll need some graphic packages:
 \fi
 </pre>
 </tt>
-<p>
+
 Now, draw your favorite graph of whatever using xfig and export as combined
 PS/LaTeX as well as combined PDF/LaTeX. This produces a bunch of files, all
 of which are best kept in the folder containing the .tex document (or wherever
 else you prefer). Now you can define a handy command 
-</p>
+
 <tt>
 <pre>
 \newcommand{\mynd}[4]
@@ -126,7 +124,7 @@ else you prefer). Now you can define a handy command
 }
 </pre>
 </tt>
-<p>
+
 This way, you can import a picture into a latex document which works for
 both latex and pdflatex. It takes four arguments, these are: #1 the name
 of the xfig file with no extension; #2 any of the letters h,t,b etc for
@@ -140,10 +138,12 @@ no label: #4 the label identifying the picture.
 Lists and indentation
 </h3>
 
+<p>
 The following defines an environment for lists where the numbers and
 the content all line up nicely with the rest of the material. This is
 especially convenient to list out examples or remarks, where each element
 of the list is typically a full paragraph, rather than just a word or two.
+
 <tt>
 <pre>
 \newenvironment{blist}
@@ -162,10 +162,12 @@ of the list is typically a full paragraph, rather than just a word or two.
 }
 </pre>
 </tt>
+
 The number <tt>4</tt> here can be adjusted, but to me it seems to produce
 reasonable space.
 With the above code in the preamble, you can now create a nice list like
 this:
+
 <tt>
 <pre>
 \begin{blist}
@@ -179,7 +181,9 @@ The second remark is quite important.
 \end{blist}
 </pre>
 </tt>
+
 For further info, see e.g. 3.4.4 of The LaTeX Companion, Second Edition.
+</p>
 
 
 <!--
@@ -243,6 +247,7 @@ matter, to make everything look good.
 <h2>
 Vim
 </h2>
+
 <h3>    
 Some macros
 </h3>
@@ -250,24 +255,22 @@ Some macros
 <p>
 I keep a macro in the <tt>l</tt> register for compiling latex
 documents. This requires latexmk. For this, execute
-</p>
 
 <tt>
 <pre>
 let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
 </pre>
 </tt>
+
 or, if you're using (<tt>t</tt>)<tt>csh</tt>,
+
 <tt>
 <pre>
 let @l=":w\n:!if ( % =~ *.tex) latexmk %\n"
 </pre>
 </tt>
 
-
-<p>
 This one I keep in <tt>@e</tt> to toggle spelling.
-</p>
 
 <tt>
 <pre>
@@ -275,9 +278,7 @@ let @e=":set spell! spelllang=en\n"
 </pre>
 </tt>
 
-<p>
 It is also useful to toggle <tt>autoindent</tt> as follows:
-</p>
 
 <tt>
 <pre>
@@ -289,18 +290,23 @@ let @i=":set invautoindent\n:set autoindent?\n"
 <h3>
 Colors
 </h3>
+
+<p>
 So far, I like the color scheme
 <a href="https://github.com/tpope/vim-vividchalk">vividchalk</a>.
 For this to work, copy the file <tt>vividchalk.vim</tt> to
 <tt>~/.vim/colors/</tt> and add the lines
+
 <tt>
 <pre>
 syntax enable
 colorscheme vividchalk
 </pre>
 </tt>
+
 to your <tt>.vimrc</tt>. Don't forget to use a 
 <a href="http://terminus-font.sourceforge.net/">slick font</a>.
+</p>
 
 
 <h2>
@@ -311,6 +317,7 @@ to your <tt>.vimrc</tt>. Don't forget to use a
 XDvi
 </h3>
 
+</p>
 Some of these parameters should obviously be adjusted to the dimensions
 of your screen.
 
@@ -335,11 +342,13 @@ XDvi.mainTranslations: #override   \
 &lt;Key&gt;u:   set-shrink-factor(-)  \n \
 </pre>
 </tt>
+</p>
 
 <h3>
 XFig
 </h3>
 
+</p>
 If you don't put in these options, an error will come your way. The
 <tt>special</tt> flag is important if you want text to be interpreted
 as LaTeX code. In this case, remember to export everything to
@@ -354,12 +363,14 @@ Fig.specialtext: true
 Fig.canvasforeground: default
 </pre>
 </tt>
+</p>
 
 
 <h3>
 XDaliClock
 </h3>
 
+<p>
 For optimal desktop clock experience, use <tt>xdaliclock</tt>
 with the following parameters:
 
@@ -375,6 +386,7 @@ XDaliClock.transparent:  true
 If you're using <tt>evilwm</tt>, use the command line parameters
 <tt>-app xdaliclock/XDaliClock -g 444x162+a+b</tt>, where
 <tt>a,b</tt> is your favorite position on the desktop for a clock.
+</p>
 
 <h2>
 Miscellaneous
@@ -384,6 +396,7 @@ Miscellaneous
 Fonts
 </h3>
 
+<p>
 Say you have a directory <tt>/full/path/to/dir/</tt> full of your favorite
 fonts. How can you use them in your favorite applications?
 Use the program
@@ -391,6 +404,7 @@ Use the program
 <tt>mkfontdir</tt></a> to create a file <tt>fonts.dir</tt>. Then use
 <a href="http://www.x.org/archive/X11R7.5/doc/man/man1/xset.1.html">
 <tt>xset</tt></a> to tell the system to use this directory. In short,
+
 <tt>
 <pre>
 cd /full/path/to/dir/
@@ -398,6 +412,7 @@ mkfontdir
 xset +fp /full/path/to/dir/
 </pre>
 </tt>
+
 The last of these commands must be repeated every time you log in using
 <tt>xdm</tt>, <tt>startx</tt> or <tt>xinit</tt> or something like that.
 Therefore, it is good to add it to <tt>.xsession</tt> if you use
@@ -406,6 +421,7 @@ or <tt>.xinitrc</tt> if you use <tt>xinit</tt>.
 
 An excellent font for the command line is
 <a href="http://terminus-font.sourceforge.net/"><tt>terminus</tt></a>.
+</p>
 
 <h3>
 Bash
@@ -472,7 +488,9 @@ like a dog. Keep in mind, though, that mailpile is still in beta stage.
 Abook
 </h3>
 
+<p>
 Here is my <tt>~/.abook/abookrc</tt>
+
 <tt>
 <pre>
 set emailpos=40
@@ -480,6 +498,7 @@ set extra_column=-1
 set sort_field=Name
 </pre>
 </tt>
+</p>
 
 
 <h3>
@@ -491,6 +510,7 @@ Zathura
 application for viewing <tt>pdf</tt> and <tt>djvu</tt> documents.
 What follows is my configuration file, found in
 <tt>~/.config/zathura/zathurarc</tt>
+
 <tt>
 <pre>
 map . navigate next
@@ -505,9 +525,103 @@ map i zoom in
 map u zoom out
 </pre>
 </tt>
+
 The binding of <tt>.</tt> and <tt>,</tt> is inspired by the default
 bindings of the nice pdf viewer
 <a href="http://mupdf.com/"><tt>mupdf</tt></a>.
+</p>
+
+
+<h3>
+Music On Console
+</h3>
+
+<p>
+The best music player is
+<a href="http://moc.daper.net/">music on cosole</a>.
+The configuration file for <tt>mocp</tt> is usually
+<tt>~/.moc/config</tt>. For me, this looks like
+
+<tt>
+<pre>
+Theme = moca_theme_ed
+Keymap = keymap
+
+Layout1 = directory(0,0,100%,100%):playlist(0,0,100%,100%)
+Layout2 = directory(0,0,50%,100%):playlist(50%,0,FILL,100%)
+</pre>
+</tt>
+
+The first line selects a theme. I made small modifications to the theme
+<tt>moca_theme</tt> which I keep in <tt>~/.moc/themes/moca_theme_ed</tt>
+and reads
+
+<tt>
+<pre>
+background              = white         black
+frame                   = white         black
+
+window_title            = yellow        black   bold
+directory               = white         black
+selected_directory      = yellow        black   bold
+
+playlist                = white         black
+selected_playlist       = yellow        black   bold
+
+file                    = white         black
+selected_file           = yellow        black   bold
+marked_file             = green         black   bold
+marked_selected_file    = green         black   bold
+
+info                    = magenta       black   bold
+selected_info           = yellow        black   bold
+marked_info             = green         black   bold
+marked_selected_info    = yellow        black   bold
+
+status                  = red           black   bold
+title                   = yellow        black   bold
+state                   = red           black   bold
+
+current_time            = magenta       black   bold
+time_left               = green         black   bold
+total_time              = magenta       black   bold
+time_total_frames       = magenta       black   bold
+
+sound_parameters        = white         black   bold
+legend                  = white         black
+        
+disabled                = red           black   bold
+enabled                 = green         black   bold
+
+empty_mixer_bar         = green         magenta 
+filled_mixer_bar        = magenta       green
+empty_time_bar          = green         magenta
+filled_time_bar         = magenta       green
+entry                   = white         black
+entry_title             = magenta       black   bold
+error                   = red           black   bold
+message                 = green         black   bold
+plist_time              = red           black   bold
+</pre>
+</tt>
+
+Note the options <tt>selected_info</tt>, <tt>marked_info</tt> and
+<tt>marked_selected_info</tt> which seem to be missing from many of the
+themes provided with the program.
+
+The second line instructs <tt>mocp</tt> to read the file
+<tt>~/.moc/keymap</tt> and use the keybindings there. For me, this reads
+simply as as
+
+<tt>
+<pre>
+menu_down += j
+menu_up += k
+</pre>
+</tt>
+
+The last two lines switch the two default layouts, as I prefer to just
+use the file browser.
 </p>
 
 
