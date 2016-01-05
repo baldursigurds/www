@@ -140,6 +140,49 @@ no label: #4 the label identifying the picture.
 Lists and indentation
 </h3>
 
+The following defines an environment for lists where the numbers and
+the content all line up nicely with the rest of the material. This is
+especially convenient to list out examples or remarks, where each element
+of the list is typically a full paragraph, rather than just a word or two.
+<tt>
+<pre>
+\newenvironment{blist}
+{
+  \begin{list}{(\thedummy)}
+  {
+	\setlength\labelsep{4pt}
+	\setlength\itemindent{4pt}
+	\setlength\leftmargin{0pt}
+	\setlength\labelwidth{0pt}
+    \usecounter{dummy}
+  }
+}
+{
+  \end{list}
+}
+</pre>
+</tt>
+The number <tt>4</tt> here can be adjusted, but to me it seems to produce
+reasonable space.
+With the above code in the preamble, you can now create a nice list like
+this:
+<tt>
+<pre>
+\begin{blist}
+
+\item
+The first example is about something.
+
+\item
+The second remark is quite important.
+
+\end{blist}
+</pre>
+</tt>
+For further info, see e.g. 3.4.4 of The LaTeX Companion, Second Edition.
+
+
+<!--
 <p>
 I could never figure out how to use the standard <tt>enumerate</tt>
 environment to construct an enumerated list without an extra indentation
@@ -194,7 +237,7 @@ each item would stick out to the left. I don't know why that is, but you might
 want to play around with this value, or any of the other values, for that
 matter, to make everything look good.
 </p>
-
+-->
 
 
 <h2>
