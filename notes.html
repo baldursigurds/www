@@ -227,6 +227,24 @@ to your <tt>.vimrc</tt>. Don't forget to use a
 </p>
 
 
+<h3>
+Regex tricks
+</h3>
+
+<p>
+To search for any non-ascii, just use
+
+<pre>
+/[^\x00-\x7F]
+</pre>
+
+as suggested
+by
+<a href="http://stackoverflow.com/questions/16987362/how-to-get-vim-to-highlight-non-ascii-characters">this</a>
+stackowerflow post.
+</p>
+
+
 <h2>
 .Xdefaults / .Xresources
 </h2>
@@ -523,61 +541,6 @@ use the file browser.
 </p>
 
 
-
-<h3>
-<tt>rc.local</tt> on Arch Linux
-</h3>
-
-<p>
-Arch linux uses
-<tt><a href="http://freedesktop.org/wiki/Software/systemd/">systemd</a></tt>
-which, by default, doesn&#8217;t come with the celebrated
-<tt>/etc/rc.local</tt> script. To fix this, create a service for this
-very purpose. Create the file
-<tt>/usr/lib/systemd/system/rc-local.service</tt> with the following
-content
-
-<pre>
-[Unit]
-Description=rc.local
-
-[Service]
-Type=oneshot
-ExecStart=/etc/rc.local
-RemainAfterExit=yes
-
-[Install]
-WantedBy=multi-user.target
-</pre>
-
-Then, put whatever you want into the text file <tt>/etc/rc.local</tt>.
-Just remember that it should be executable, and the first line
-should be
-
-<pre>
-&#35;&#33;/bin/bash
-</pre>
-
-or a similar line pointing to a shell of your choice.
-For this whole thing to work, you want to run
-
-<pre>
-systemctl enable rc-local.service
-</pre>
-
-The system now runs the script on startup.
-</p>
-
-<p>
-For more details, see
-<a href="http://www.freedesktop.org/software/systemd/man/systemd.service.html">
-<tt>systemd.service(5)</tt></a>, the
-<a href="https://wiki.archlinux.org/index.php/Systemd">Arch wiki entry on
-systemd</a>
-or
-<a href="http://blog.iopsl.com/rc-local-compatibility-in-arch-linux/">
-this short blogpost</a>.
-</p>
 
 
 </body>
