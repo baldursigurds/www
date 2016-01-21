@@ -230,11 +230,11 @@ to your <tt>.vimrc</tt>. Don't forget to use a
 
 
 <h3>
-Regex tricks
+Looking for nonascii characters
 </h3>
 
 <p>
-To search for any non-ascii, just use
+To search for any nonascii character, just use
 
 <pre>
 /[^\x00-\x7F]
@@ -244,6 +244,43 @@ as suggested
 by
 <a href="http://stackoverflow.com/questions/16987362/how-to-get-vim-to-highlight-non-ascii-characters">this</a>
 stackowerflow post.
+</p>
+
+<h3>
+Search and replace with multiples
+</h3>
+<p>
+The following command replaces any integer with its multiple with four.
+
+<pre>
+:s/\d\+/\=submatch(0)*4/g
+</pre>
+
+The expression <tt>\d\+</tt> matches any string of digits. In the second
+part, the
+<a href="http://vimdoc.sourceforge.net/htmldoc/change.html#sub-replace-expression"><tt>\=</tt></a>
+indicates that the string is an expression which should
+be interpreted. The <tt>submatch(0)</tt> gives the matched
+pattern, in our case a string of digits. This
+is then quadrupled by <tt>*4</tt>. If you need to multiply numbers inside
+some pattern, you can flag the number and use <tt>submatch(n)</tt>, where
+the number is the nth flagged part. As an example, running
+
+<pre>
+:s/\(\d\+\) monkey[s]*/\=submatch(1)*4 . " monkeys "/g
+</pre>
+
+will turn the string
+
+<pre>
+1 monkey and 4 cats and another 8 monkeys
+</pre>
+
+into 
+
+<pre>
+4 monkeys  and 4 cats and another 32 monkeys
+</pre>
 </p>
 
 
