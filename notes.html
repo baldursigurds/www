@@ -72,6 +72,14 @@ $1=0$.
 <h3>
 How to use xfig in such a way that it works for both dvi and pdf.
 </h3>
+
+<p>
+Here, I explain how to incorporate pictures created using
+<a href="http://xfig.org/"><tt>xfig</tt></a>
+into a LaTeX document. More instructions can be found
+<a href="http://www.xfig.org/userman/latex_and_xfig.html">here</a>.
+</p>
+
 <p>
 If you want both pdf and dvi coming from the same document, then the packages
 <tt>ifpdf</tt> and <tt>ifthen</tt> are pretty useful:
@@ -127,6 +135,7 @@ for your preference of setting the picture here, top, bottom, etc;
 <tt>#3</tt>
 the caption of the figure&mdash;if left empty there will be no caption and
 no label; <tt>#4</tt> the label identifying the picture.
+For correct configuration of <tt>xfig</tt>, see section below.
 </p>
 
 <p>
@@ -387,6 +396,7 @@ If you don't put in these options, an error will come your way. The
 as LaTeX code. In this case, remember to export everything to
 <tt>Combined PS/LaTeX (both parts)</tt> for <tt>dvi</tt> output and
 <tt>Combined PDF/LaTeX (both parts)</tt> for <tt>pdf</tt> output.
+Better yet, use the script above to automate this.
 
 <pre>
 Fig.latexfonts:       true
