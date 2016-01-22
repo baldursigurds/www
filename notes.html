@@ -91,8 +91,9 @@ Next you'll need some graphic packages:
 \fi
 </pre>
 
-Now, draw your favorite graph of whatever using xfig and export as combined
-PS/LaTeX as well as combined PDF/LaTeX. This produces a bunch of files, all
+Now, draw your favorite graph of whatever using xfig and export as
+<tt>Combined PS/LaTeX (both parts)</tt> as well as
+<tt>Combined PDF/LaTeX (both parts)</tt>. This produces a bunch of files, all
 of which are best kept in the folder containing the .tex document (or wherever
 else you prefer). Now you can define a handy command 
 
@@ -118,11 +119,14 @@ else you prefer). Now you can define a handy command
 </pre>
 
 This way, you can import a picture into a latex document which works for
-both latex and pdflatex. It takes four arguments, these are: #1 the name
-of the xfig file with no extension; #2 any of the letters h,t,b etc for
-your preference of setting the picture here, top, bottom, etc;
-#3 the caption of the figure---if left empty there will be no caption and
-no label: #4 the label identifying the picture.
+both latex and pdflatex. It takes four arguments, these are: <tt>#1</tt>
+the name
+of the xfig file with no extension; <tt>#2</tt> any of the letters
+<tt>h</tt>, <tt>t</tt>, <tt>b</tt>, etc
+for your preference of setting the picture here, top, bottom, etc;
+<tt>#3</tt>
+the caption of the figure---if left empty there will be no caption and
+no label; <tt>#4</tt> the label identifying the picture.
 </p>
 
 
@@ -328,12 +332,28 @@ as LaTeX code. In this case, remember to export everything to
 <tt>Combined PS/LaTeX (both parts)</tt> for <tt>dvi</tt> output and
 <tt>Combined PDF/LaTeX (both parts)</tt> for <tt>pdf</tt> output.
 
-
 <pre>
-Fig.latexfonts: true
-Fig.specialtext: true
-Fig.canvasforeground: default
+Fig.latexfonts:       true
+Fig.specialtext:      true
+Fig.inches:           false
+Fig.startgridmode:    1
+Fig.startposnmode:    1
+Fig.zoom:             3.0
 </pre>
+
+I always have to say explicitly that the color of text should be
+<tt>default</tt> rather than <tt>black</tt>. Otherwise the
+LaTeX compiler spits out an error and halts.
+If you find a way to do this automatically, please let me know.
+</p>
+
+<p>
+Also, it would be super cool to figure out how to configure xfig to export to
+both options at the same time mentioned above by default, but I'm not sure if
+it's possible. Better yet, though, would be to have a command line tool that
+does this. Then the exporting could be incorporated into a make file or
+a macro or whatever rather than pressing a bunch of stupid buttons with
+a mouse. Anyway, let me know if you have any good ideas.
 </p>
 
 
@@ -457,8 +477,8 @@ Abook
 Here is my <tt>~/.abook/abookrc</tt>
 
 <pre>
-set emailpos=40
-set extra_column=-1
+set index_format=" {name:39} {email:39} "
+set show_all_emails=true
 set sort_field=Name
 </pre>
 </p>
