@@ -125,8 +125,64 @@ of the xfig file with no extension; <tt>#2</tt> any of the letters
 <tt>h</tt>, <tt>t</tt>, <tt>b</tt>, etc
 for your preference of setting the picture here, top, bottom, etc;
 <tt>#3</tt>
-the caption of the figure---if left empty there will be no caption and
+the caption of the figure&mdash;if left empty there will be no caption and
 no label; <tt>#4</tt> the label identifying the picture.
+</p>
+
+<p>
+To automate the task of exporting the files as above, make sure that
+<a href="http://www.xfig.org/"><tt>transfig</tt></a> is properly installed
+(this provides <tt>fig2dev</tt>) and
+keep the following script handy.
+<pre>
+for i in *.fig
+do
+  j=`echo $i | sed s/.fig$//`
+
+  if [ -e $j.pstex_t ]
+  then
+    echo "Overwriting $j.pstex_t"
+  else
+    echo "Creating $j.pstex_t"
+  fi
+
+  echo "\begin{picture}(0,0)%"        &gt;  $j.pstex_t
+  echo "\includegraphics{$j.pstex}%"  &gt;&gt; $j.pstex_t
+  echo "\end{picture}%"               &gt;&gt; $j.pstex_t
+  fig2dev -L pstex_t $j.fig           &gt;&gt; $j.pstex_t
+
+  if [ -e $j.pdf_t ]
+  then
+    echo "Overwriting $j.pdf_t"
+  else
+    echo "Creating $j.pdf_t"
+  fi
+
+  echo "\begin{picture}(0,0)%"        &gt;  $j.pdf_t
+  echo "\includegraphics{$j.pdf}%"    &gt;&gt; $j.pdf_t
+  echo "\end{picture}%"               &gt;&gt; $j.pdf_t
+  fig2dev -L pstex_t $j.fig           &gt;&gt; $j.pdf_t
+
+  if [ -e $j.pstex ]
+  then
+    echo "Overwriting $j.pstex"
+  else
+    echo "Creating $j.pstex"
+  fi
+
+  fig2dev -L pstex   $j.fig &gt; $j.pstex
+
+  if [ -e $j.pdf ]
+  then
+    echo "Overwriting $j.pdf"
+  else
+    echo "Creating $j.pdf"
+  fi
+
+  fig2dev -L pdftex  $j.fig &gt; $j.pdf
+
+done
+</pre>
 </p>
 
 
@@ -346,16 +402,6 @@ I always have to say explicitly that the color of text should be
 LaTeX compiler spits out an error and halts.
 If you find a way to do this automatically, please let me know.
 </p>
-
-<p>
-Also, it would be super cool to figure out how to configure xfig to export to
-both options at the same time mentioned above by default, but I'm not sure if
-it's possible. Better yet, though, would be to have a command line tool that
-does this. Then the exporting could be incorporated into a make file or
-a macro or whatever rather than pressing a bunch of stupid buttons with
-a mouse. Anyway, let me know if you have any good ideas.
-</p>
-
 
 <h3>
 XDaliClock
