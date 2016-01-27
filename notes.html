@@ -352,6 +352,40 @@ into
 </pre>
 </p>
 
+<h3>
+Latex-Suite
+</h3>
+
+The <a href="http://vim-latex.sourceforge.net">Latex-Suite</a> comes
+with some pretty neat tools, in particular, sensible folding rules.
+I don't like their macros, thogh, so keep this line in your
+<tt>.vimrc</tt>
+
+<pre>
+let g:Imap_FreezeImap=1
+</pre>
+
+Also, the following is good
+
+<pre>
+let g:Tex_FoldedEnvironments="verbatim,comment,eq,gather,align,figure,table,
+\thebibliography,keywords,abstract,titlepage,lemma,definition,def,thm,
+\theorem,prop,block,rem,proof"
+</pre>
+
+Thanks go to
+<a href="http://stackoverflow.com/questions/8006117/wrap-long-lines-in-vimrc">
+Stackoverflow</a> for educating the populus on how to continue new lines
+in vim scripts.
+
+Apparently, on must also include these
+
+<pre>
+filetype plugin on
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+</pre>
+
 
 <h2>
 .Xdefaults / .Xresources
