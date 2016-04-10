@@ -256,7 +256,7 @@ I keep a macro in the <tt>l</tt> register for compiling latex
 documents. This requires latexmk. For this, execute
 
 <pre>
-let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
+let @l=":w\n:!if echo % | grep tex; then latexmk -pdf --synctex=1 %; fi\n"
 </pre>
 
 or, if you're using (<tt>t</tt>)<tt>csh</tt>,
@@ -635,6 +635,45 @@ map u zoom out
 The binding of <tt>.</tt> and <tt>,</tt> is inspired by the default
 bindings of the nice pdf viewer
 <a href="http://mupdf.com/"><tt>mupdf</tt></a>.
+</p>
+
+
+<h3>
+Synctex with vim and zathura
+</h3>
+
+<p>
+Synctex is a pretty cool thing. There seem to be a lot of super complicated
+explanations online on how to get it to work with <tt>vim</tt> and
+<tt>zathura</tt>. The <tt>latex-suite</tt> even gets dragged into the whole
+business. Here is a simple setup which allows you to do forward search.
+I'll update this once I figure out how to do backwards search in a simple way.
+<p>
+
+</p>
+Assume that you have a document <tt>proj.tex</tt>. First step is to compile
+it, producing a <tt>.pdf</tt> file and a <tt>.synctex.gz</tt> file. This
+is achieved by running
+<pre>
+latexmk -pdf --synctex=1 proj.tex
+</pre>
+in the directory containing the source file. Above, you can find a macro
+which automates this from <tt>vim</tt>.
+Open the <tt>.pdf</tt> document by running
+<pre>
+zathura proj.pdf
+</pre>
+as usual. To make the viewer go to the place corresponding to line 500
+in the source code, all you need to do is run
+<pre>
+zathura proj.pdf --synctex-forward=500:1:proj.tex
+</pre>
+To wrap the whole thing up into a neat macro, keep the following
+in your <tt>.vimrc</tt>
+<pre>
+let @f=":exe \"!zathura `echo % | sed s/tex$/pdf/` --synctex-forward=\"
+\ . line(\".\") . \":\" . col(\".\") . \":\" . \"%\"\n\n"
+</pre>
 </p>
 
 
