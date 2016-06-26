@@ -381,6 +381,19 @@ set expandtab
 
 
 <h3>
+Merging lines of a paragraph
+</h3>
+
+<p>
+The command
+<pre>
+:%g/./.,/^$/-j
+</pre>
+merges the lines of each paragraph into a single line. This assumes that
+paragraphs are separated by empty lines.
+</p>
+
+<h3>
 Latex-Suite
 </h3>
 
