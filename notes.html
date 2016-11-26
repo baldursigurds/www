@@ -780,6 +780,32 @@ The last two lines switch the two default layouts, as I prefer to just
 use the file browser.
 </p>
 
+<h3>
+ncmpcpp bindings
+</h3>
+
+<a href="http://rybczak.net/ncmpcpp/">ncmpcpp</a> has a nice interface,
+but with the default setup, nothing happens if you press the spacebar
+or the vi navigation keys. This flaw can be remedied by setting up
+a file <tt>.ncmpcpp/bindings</tt> with the following content:
+<pre>
+def_key "j"
+  scroll_down
+def_key "k"
+  scroll_up
+
+def_key "h"
+  volume_down
+
+def_key "l"
+  volume_up
+
+def_key "space"
+  pause
+</pre>
+<p>
+</p>
+
 <!--
 <h3>
 GP/PARI
