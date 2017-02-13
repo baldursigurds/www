@@ -195,6 +195,18 @@ done
 </p>
 
 
+<p>
+Additionally, it can happen sometimes that this stuff doesn't compile
+into <tt>dvi</tt> if some text has some color. Typically, the text is
+by default with color 'black', and manually changing everything to
+the color 'default' makes it work. However, this is a super boring
+way of solving a problem, when the following command will do the job
+<pre>
+for i in *.pstex_t; do cat $i | sed  s/.color.rgb..0,0,0.// > $i.old; mv $i.old $i; done
+</pre>
+</p>
+
+
 <h3>
 Lists and indentation
 </h3>
