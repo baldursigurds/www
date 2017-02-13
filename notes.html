@@ -269,7 +269,7 @@ I keep a macro in the <tt>l</tt> register for compiling latex
 documents. This requires latexmk. For this, execute
 
 <pre>
-let @l=":w\n:!if echo % | grep tex; then latexmk %; fi\n"
+let @l=":w\n:!if echo % | grep tex; then latexmk -pdf --synctex=1 %; fi\n"
 </pre>
 
 or, if you're using (<tt>t</tt>)<tt>csh</tt>,
@@ -393,12 +393,25 @@ set expandtab
 
 
 <h3>
+Merging lines of a paragraph
+</h3>
+
+<p>
+The command
+<pre>
+:%g/./.,/^$/-j
+</pre>
+merges the lines of each paragraph into a single line. This assumes that
+paragraphs are separated by empty lines.
+</p>
+
+<h3>
 Latex-Suite
 </h3>
 
 The <a href="http://vim-latex.sourceforge.net">Latex-Suite</a> comes
 with some pretty neat tools, in particular, sensible folding rules.
-I don't like their macros, thogh, so keep this line in your
+I don't like their macros, though, so keep this line in your
 <tt>.vimrc</tt>
 
 <pre>
@@ -418,7 +431,7 @@ Thanks go to
 Stackoverflow</a> for educating the populus on how to continue new lines
 in vim scripts.
 
-Apparently, on must also include these
+Apparently, one must also include these
 
 <pre>
 filetype plugin on
@@ -655,6 +668,45 @@ bindings of the nice pdf viewer
 
 
 <h3>
+Synctex with vim and zathura
+</h3>
+
+<p>
+Synctex is a pretty cool thing. There seem to be a lot of super complicated
+explanations online on how to get it to work with <tt>vim</tt> and
+<tt>zathura</tt>. The <tt>latex-suite</tt> even gets dragged into the whole
+business. Here is a simple setup which allows you to do forward search.
+I'll update this once I figure out how to do backwards search in a simple way.
+<p>
+
+</p>
+Assume that you have a document <tt>proj.tex</tt>. First step is to compile
+it, producing a <tt>.pdf</tt> file and a <tt>.synctex.gz</tt> file. This
+is achieved by running
+<pre>
+latexmk -pdf --synctex=1 proj.tex
+</pre>
+in the directory containing the source file. Above, you can find a macro
+which automates this from <tt>vim</tt>.
+Open the <tt>.pdf</tt> document by running
+<pre>
+zathura proj.pdf
+</pre>
+as usual. To make the viewer go to the place corresponding to line 500
+in the source code, all you need to do is run
+<pre>
+zathura proj.pdf --synctex-forward=500:1:proj.tex
+</pre>
+To wrap the whole thing up into a neat macro, keep the following
+in your <tt>.vimrc</tt>
+<pre>
+let @f=":exe \"!zathura `echo % | sed s/tex$/pdf/` --synctex-forward=\"
+\ . line(\".\") . \":\" . col(\".\") . \":\" . \"%\"\n\n"
+</pre>
+</p>
+
+
+<h3>
 Music On Console
 </h3>
 
@@ -740,7 +792,33 @@ The last two lines switch the two default layouts, as I prefer to just
 use the file browser.
 </p>
 
+<h3>
+ncmpcpp bindings
+</h3>
 
+<a href="http://rybczak.net/ncmpcpp/">ncmpcpp</a> has a nice interface,
+but with the default setup, nothing happens if you press the spacebar
+or the vi navigation keys. This flaw can be remedied by setting up
+a file <tt>.ncmpcpp/bindings</tt> with the following content:
+<pre>
+def_key "j"
+  scroll_down
+def_key "k"
+  scroll_up
+
+def_key "h"
+  volume_down
+
+def_key "l"
+  volume_up
+
+def_key "space"
+  pause
+</pre>
+<p>
+</p>
+
+<!--
 <h3>
 GP/PARI
 </h3>
@@ -753,6 +831,7 @@ a dark background for your terminal:
 default(colors, "darkbg")
 </pre>
 </p>
+-->
 
 </body>
 </html>
