@@ -440,6 +440,23 @@ let g:tex_flavor='latex'
 </pre>
 
 
+<h3>
+Automatically set <tt>tw</tt> for composing email in <tt>mutt</tt>.
+</h3>
+
+<p>
+Add the following line to <tt>.vimrc</tt> to set the text width to 72,
+whenever editing an email (change the directory and format according
+to your system)
+<pre>
+au BufRead /tmp/mutt-* set tw=72
+</pre>
+This gem, like so many others, was found on the
+<a href="https://wiki.archlinux.org/index.php/Mutt#vim">
+Arch Linux wiki</a>.
+</p>
+
+
 <h2>
 .Xdefaults / .Xresources
 </h2>
