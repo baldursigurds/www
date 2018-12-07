@@ -619,6 +619,21 @@ been copied directly from this manual.
 </p>
 
 <p>
+To open <tt>html</tt> emails, add the following lines to your
+<tt>.mailcap</tt>
+<pre>
+text/html; firefox %s &amp;; test=test -n "$DISPLAY"; needsterminal;
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+</pre>
+Also, make sure to have <tt>w3m</tt> installed. This way, the hypertext
+will appear formatted in the pager, and you can also view it in firefox
+by pressing <tt>v</tt> and selecting the file. I found these lines at
+<a href="http://jasonwryan.com/blog/2012/05/12/mutt/">
+http://jasonwryan.com/blog/2012/05/12/mutt/</a>
+and modified them to use firefox.
+</p>
+
+<p>
 &#42;Shameless plug&#42;&mdash;if a text based interface to email is not your
 cup of 
 tea, then check out <a href="https://www.mailpile.is/">mailpile</a>.
