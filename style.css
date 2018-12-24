@@ -23,3 +23,8 @@ h3 {
 pre {
 	background-color:pink;
 }
+
+img.bico {
+    padding-right:10px;
+    float:left;
+}
