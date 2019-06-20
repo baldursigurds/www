@@ -256,6 +256,33 @@ For further info, see e.g. 3.4.4 of The LaTeX Companion, Second Edition.
 </p>
 
 
+<h3>    
+Ending a proof in displaymath
+</h3>
+
+<p>
+If you end a proof with a formula in displaymath, then the qed symbol will
+go to the right in a new line after the formula, which creates a big ugly
+white empty space in your document. And if you just put a \qedhere inside
+displaymath, then the qed symbol will not get pushed to the right. What to
+do, right?
+Fortunately, some good person at
+<a href="https://tex.stackexchange.com/questions/66152/pushing-qed-to-the-right-within-a-displayed-formula">stackexchange</a>
+gave a solution to this. I don't know how this works, or what's happening
+in this black box (pun intended),
+but the outcome is all that matters.
+<pre>
+\[
+\pushQED{\qed}
+  \fa{\gamma\in\partial\triangle^{(1)}}
+     {\wt_\gamma g \geq m_\gamma + 1}.
+\qedhere
+\popQED
+\]
+</pre>
+</p>
+
+
 <h2>
 Vim
 </h2>
@@ -894,4 +921,3 @@ colors = "darkbg"
 
 </body>
 </html>
-
